@@ -30,7 +30,7 @@ public class CalculatorTest {
 
     public int makeCalculations(ArrayList<String> results,
             ArrayList<String> prediction) {
-        calculator = new Calculator(results, prediction);
+        calculator = new Calculator();
         return calculator.calculateScore(results, prediction);
     }
 
@@ -43,10 +43,12 @@ public class CalculatorTest {
         assertEquals(133, score);
     }
 
+    // Note: these do not test if the user picks a rider who was in the top five, but the position was off
+    
     @Test
     public void testJustFirstPlaceCorrect() {
         ArrayList<String> results = makeList("a", "b", "c", "d", "e", "f");
-        ArrayList<String> prediction = makeList("a", "c", "d", "e", "f", "g");
+        ArrayList<String> prediction = makeList("a", "g", "h", "i", "j", "k");
         int score = makeCalculations(results, prediction);
 
         assertEquals(26, score);
@@ -73,7 +75,7 @@ public class CalculatorTest {
     @Test
     public void testJustFourthPlaceCorrect() {
         ArrayList<String> results = makeList("a", "b", "c", "d", "e", "f");
-        ArrayList<String> prediction = makeList("g", "h", "z", "d", "j", "k");
+        ArrayList<String> prediction = makeList("g", "h", "i", "d", "j", "k");
         int score = makeCalculations(results, prediction);
 
         assertEquals(19, score);
@@ -82,7 +84,7 @@ public class CalculatorTest {
     @Test
     public void testJustFifthPlaceCorrect() {
         ArrayList<String> results = makeList("a", "b", "c", "d", "e", "f");
-        ArrayList<String> prediction = makeList("g", "h", "z", "v", "e", "k");
+        ArrayList<String> prediction = makeList("g", "h", "i", "j", "e", "k");
         int score = makeCalculations(results, prediction);
 
         assertEquals(18, score);
@@ -91,10 +93,29 @@ public class CalculatorTest {
     @Test
     public void testJustWildcardCorrect() {
         ArrayList<String> results = makeList("a", "b", "c", "d", "e", "f");
-        ArrayList<String> prediction = makeList("g", "h", "z", "v", "q", "f");
+        ArrayList<String> prediction = makeList("g", "h", "i", "j", "k", "f");
         int score = makeCalculations(results, prediction);
 
         assertEquals(26, score);
     }
+    
+    @Test
+    public void testFirstAndSecondPickedInWrongOrder(){
+        ArrayList<String> results = makeList("a", "b", "c", "d", "e", "f");
+        ArrayList<String> prediction = makeList("b", "a", "i", "j", "k", "l");
+        int score = makeCalculations(results, prediction);
+
+        assertEquals(10, score);
+    }
+    
+    @Test
+    public void testFirstThirdAndFifthPickedInWrongOrder(){
+        ArrayList<String> results = makeList("Tomac", "Musquin", "Baggett", "Craig", "Anderson", "Bloss");
+        ArrayList<String> prediction = makeList("Baggett", "Tomac", "Anderson", "Wrong", "Wrong", "Wrong");
+        int score = makeCalculations(results, prediction);
+
+        assertEquals(15, score);
+    }
+
 
 }
