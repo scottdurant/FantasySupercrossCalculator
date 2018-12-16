@@ -1,2 +1,2 @@
 # FantasySupercrossCalculator
-Adding a line to the readme
+Here is how scores are calulated, from the RMFantasySX rules: Each place will be rewarded with the following point values: 1st place = 26 points; 2nd place = 23 points; 3rd place = 21 points; 4th place = 19 points; 5th place = 18 points; wildcard = 26 points. Additionally, 5 points will be awarded for each rider that you pick in the top five who finishes in a different position than you predicted but still places within the top five. No points will be awarded if your wildcard prediction places in the top five. No other points will be awarded.
