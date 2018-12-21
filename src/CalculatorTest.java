@@ -142,6 +142,20 @@ public class CalculatorTest {
         assertEquals(26, score);
     }
 
+    @Test
+    public void testCalculateScoreWithSmallArrayLists() {
+        ArrayList<String> results = new ArrayList<String>();
+        results.add("Tomac");
+        results.add("Musquin");
+        results.add("Baggett");
+
+        ArrayList<String> prediction = makeList("Tomac", "Bloss", "Wrong",
+                "Wrong", "Wrong", "Wrong");
+        int score = makeCalculations(results, prediction);
+
+        assertEquals(0, score);
+    }
+
     // Tests for checkArrays method //////////////////////////////////////////
 
     @Test

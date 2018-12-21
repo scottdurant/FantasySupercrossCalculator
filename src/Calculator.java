@@ -1,9 +1,9 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /*
- * TODO: Make sure no points are added if the wildcard places in the top 5
- * Get user input/make menu system
- * Throw exception if arrays are incorrectly sized
+ * TODO: Make sure no points are added if the wildcard places in the top 5 Get
+ * user input/make menu system Throw exception if arrays are incorrectly sized
  */
 
 public class Calculator {
@@ -16,12 +16,12 @@ public class Calculator {
 
     public int calculateScore(ArrayList<String> results,
             ArrayList<String> prediction) {
-        
-        if(!checkArrays(prediction, results)){
+
+        if (!checkArrays(prediction, results)) {
             System.out.println("Incorrect sized arrays!");
             return 0;
         }
-        
+
         // check wildcards
         String wildCardResult = results.get(5);
         String wildCardPrediction = prediction.get(5);
@@ -86,6 +86,42 @@ public class Calculator {
 
     public static void main(String[] args) {
         System.out.println("Welcome to the Fantasy Supercross Calculator!");
+
+        ArrayList<String> results = new ArrayList<String>();
+        ArrayList<String> predictions = new ArrayList<String>();
+
+        System.out.println("Welcome to the Fantasy Supercross Calculator!");
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter your predictions (Top 5 riders followed by wildcard)");
+        for (int i = 0; i < 6; i++) {
+            String rider = scanner.nextLine();
+            results.add(rider);
+            System.out.println("Adding " + rider + "...");
+        }
+        
+        System.out.println("Enter the results from the race (Top 5 riders followed by wildcard)");
+        for (int i = 0; i < 6; i++) {
+            String rider = scanner.nextLine();
+            predictions.add(rider);
+            System.out.println("Adding " + rider + "...");
+        }
+        
+        scanner.close();
+        
+        System.out.println("Predictions: " + predictions);
+        System.out.println("Results:     " + results);
+        
+        Calculator c = new Calculator();
+        c.calculateScore(results, predictions);
+        
+        
+        System.out.println("Your score is: " + c.score);
+
+        
+        System.out.println("Exiting...");
+
     }
 
 }
