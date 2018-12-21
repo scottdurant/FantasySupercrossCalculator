@@ -1,5 +1,8 @@
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.xml.bind.SchemaOutputResolver;
 
 /*
  * TODO: Make sure no points are added if the wildcard places in the top 5 Get
@@ -84,43 +87,85 @@ public class Calculator {
         return true;
     }
 
+    public ArrayList<String> fillArraysWithUserInput() {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<String> list = new ArrayList<String>();
+
+        for (int i = 0; i < 6; i++) {
+            String rider = scanner.nextLine();
+            list.add(rider);
+            System.out.println("Adding " + rider + "...");
+        }
+        System.out.println();
+
+        scanner.close();
+
+        return list;
+    }
+
     public static void main(String[] args) {
         System.out.println("Welcome to the Fantasy Supercross Calculator!");
 
         ArrayList<String> results = new ArrayList<String>();
         ArrayList<String> predictions = new ArrayList<String>();
-
-        System.out.println("Welcome to the Fantasy Supercross Calculator!");
-
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter your predictions (Top 5 riders followed by wildcard)");
-        for (int i = 0; i < 6; i++) {
-            String rider = scanner.nextLine();
-            results.add(rider);
-            System.out.println("Adding " + rider + "...");
-        }
-        
-        System.out.println("Enter the results from the race (Top 5 riders followed by wildcard)");
-        for (int i = 0; i < 6; i++) {
-            String rider = scanner.nextLine();
-            predictions.add(rider);
-            System.out.println("Adding " + rider + "...");
-        }
-        
-        scanner.close();
-        
-        System.out.println("Predictions: " + predictions);
-        System.out.println("Results:     " + results);
-        
         Calculator c = new Calculator();
-        c.calculateScore(results, predictions);
-        
-        
-        System.out.println("Your score is: " + c.score);
+        Scanner scanner = new Scanner(System.in);
+        boolean runAgain = true;
 
-        
-        System.out.println("Exiting...");
+        while (runAgain) {
+            System.out.println(
+                    "Enter your predictions (Last names only. Press enter after each name.)");
+            for (int i = 0; i < 6; i++) {
+                String rider = scanner.nextLine();
+                predictions.add(rider);
+                System.out.println("Adding " + rider + "...");
+            }
+            System.out.println();
+
+            System.out.println(
+                    "Enter the results from the race (Last names only. Press enter after each name.)");
+            for (int i = 0; i < 6; i++) {
+                String rider = scanner.nextLine();
+                results.add(rider);
+                System.out.println("Adding: " + rider);
+            }
+            System.out.println();
+
+            // scanner.close();
+
+            System.out.println("Predictions: " + predictions);
+            System.out.println("Results:     " + results + "\n");
+
+            c.calculateScore(results, predictions);
+
+            System.out.println("Your score is: " + c.score);
+            if (c.score < 30) {
+                System.out.println("Wow you didn't do very well");
+            }
+            else if (c.score < 60) {
+                System.out.println("Not bad");
+            }
+            else if (c.score < 133) {
+                System.out.println("Good job!!!");
+            }
+            else if (c.score == 133) {
+                System.out.println("PERFECT SCORE!!!!!!!!!!!");
+            }
+
+            System.out.println("\n Run again? y/n");
+            String goAgain = scanner.nextLine();
+            if (goAgain.equals("n")) {
+                runAgain = false;
+                System.out.println("Exiting... \n");
+                scanner.close();
+            }
+            // clear arrays so we can run again
+            results.clear();
+            predictions.clear();
+            c.score = 0;  
+
+        }
+        System.out.println("Program closed");
 
     }
 
